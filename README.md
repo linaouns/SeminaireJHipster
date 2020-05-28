@@ -9,4 +9,4 @@ Développement et déploiement d’une application multi-tiers en utilisant:
 - Heroku
 - etc.
 
-Allez dans l'onglet **`Issues`** pour consulter les ateliers prévus pour ce sémainaire.
+Allez dans l'onglet **`Issues`** (URL: https://github.com/linaouns/SeminaireJHipster/issues) pour consulter les ateliers prévus pour ce sémainaire.
