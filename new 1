@@ -1,6 +1,6 @@
-1. Créons une bibliothèque avec JHipster. Définissons d'abord les entités suivantes:
+1. Créons une bibliothèque avec JHipster. Définissons d'abord les entités suivantes dans un fichier JDL qu'on importera avec la commande "jhipster import-jdl <nom_fichier_jdl>" :
 	entity Livre {
-		ISBN String, //regex ici!!
+		ISBN String,
 		nom String,
 		maisonEdition String
 	}
@@ -13,8 +13,7 @@
 	relationship OneToOne {
 		LivreDetails{livre} to Livre{details}
 	}
-
-	// Set pagination options
+	
 	paginate Auteur, LivreDetails with infinite-scroll
 	paginate Livre with pagination
 
@@ -58,7 +57,12 @@
 			<td>{livre.empruntePar ? <span>&#x274C;</span> : <span>&#x2714;</span>}</td>
 
 6. Comment interdire d'accéder à certaines routes et vues à certains utilisateurs? Pour démontrer comment faire, nous empêcherons aux utilsateurs non administrateurs d'ajouter ou de modifier les livres ainsi que leurs détails:
+	- Pour interdire de modifier les détails des livres: 
+	  1. Rajouter l'annotation "@PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")" au-dessus de toutes les méthodes POST, PUT et DELETE dans la classe "LivreDetailsResource"
+	  
+	  2. 
 	
+	- 
 	
 	
 	

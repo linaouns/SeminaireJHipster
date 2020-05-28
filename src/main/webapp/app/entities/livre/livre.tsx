@@ -8,9 +8,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IRootState } from 'app/shared/reducers';
 import { getEntities } from './livre.reducer';
 import { ILivre } from 'app/shared/model/livre.model';
-import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import {APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT, AUTHORITIES} from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import {hasAnyAuthority} from "app/shared/auth/private-route";
 
 export interface ILivreProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -64,16 +65,18 @@ export const Livre = (props: ILivreProps) => {
       activePage: currentPage,
     });
 
-  const { livreList, match, loading, totalItems } = props;
+  const { livreList, match, loading, totalItems, isAdmin } = props;
   return (
     <div>
       <h2 id="livre-heading">
         <Translate contentKey="calBiblioApp.livre.home.title">Livres</Translate>
-        <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-          <FontAwesomeIcon icon="plus" />
-          &nbsp;
-          <Translate contentKey="calBiblioApp.livre.home.createLabel">Create new Livre</Translate>
-        </Link>
+        {isAdmin &&
+          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+            <FontAwesomeIcon icon="plus"/>
+            &nbsp;
+            <Translate contentKey="calBiblioApp.livre.home.createLabel">Create new Livre</Translate>
+          </Link>
+        }
       </h2>
       <div className="table-responsive">
         {livreList && livreList.length > 0 ? (
@@ -110,38 +113,40 @@ export const Livre = (props: ILivreProps) => {
                   <td>{livre.nom}</td>
                   <td>{livre.maisonEdition}</td>
                   <td>{livre.empruntePar ? <span>&#x274C;</span> : <span>&#x2714;</span>}</td>
-                  <td className="text-right">
-                    <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`${match.url}/${livre.id}`} color="info" size="sm">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
-                      <Button
-                        tag={Link}
-                        to={`${match.url}/${livre.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
-                        color="primary"
-                        size="sm"
-                      >
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      <Button
-                        tag={Link}
-                        to={`${match.url}/${livre.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
-                        color="danger"
-                        size="sm"
-                      >
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
-                        </span>
-                      </Button>
-                    </div>
-                  </td>
+                  {isAdmin &&
+                    <td className="text-right">
+                      <div className="btn-group flex-btn-group-container">
+                        <Button tag={Link} to={`${match.url}/${livre.id}`} color="info" size="sm">
+                          <FontAwesomeIcon icon="eye"/>{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.view">View</Translate>
+                          </span>
+                        </Button>
+                        <Button
+                          tag={Link}
+                          to={`${match.url}/${livre.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
+                          color="primary"
+                          size="sm"
+                        >
+                          <FontAwesomeIcon icon="pencil-alt"/>{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.edit">Edit</Translate>
+                          </span>
+                        </Button>
+                        <Button
+                          tag={Link}
+                          to={`${match.url}/${livre.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
+                          color="danger"
+                          size="sm"
+                        >
+                          <FontAwesomeIcon icon="trash"/>{' '}
+                          <span className="d-none d-md-inline">
+                            <Translate contentKey="entity.action.delete">Delete</Translate>
+                          </span>
+                        </Button>
+                      </div>
+                    </td>
+                  }
                 </tr>
               ))}
             </tbody>
@@ -176,10 +181,11 @@ export const Livre = (props: ILivreProps) => {
   );
 };
 
-const mapStateToProps = ({ livre }: IRootState) => ({
+const mapStateToProps = ({ livre, authentication }: IRootState) => ({
   livreList: livre.entities,
   loading: livre.loading,
   totalItems: livre.totalItems,
+  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN])
 });
 
 const mapDispatchToProps = {
