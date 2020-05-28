@@ -1,0 +1,52 @@
+{
+  "name": "Livre",
+  "fields": [
+    {
+      "fieldName": "iSBN",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "maisonEdition",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "livre",
+      "relationshipName": "empruntePar",
+      "otherEntityField": "login"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "auteur",
+      "otherEntityRelationshipName": "livre",
+      "relationshipName": "auteur",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "livreDetails",
+      "otherEntityRelationshipName": "livre",
+      "relationshipName": "details",
+      "ownerSide": false
+    }
+  ],
+  "changelogDate": "20200528094000",
+  "entityTableName": "livre",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

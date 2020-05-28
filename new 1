@@ -1,0 +1,66 @@
+1. Créons une bibliothèque avec JHipster. Définissons d'abord les entités suivantes:
+	entity Livre {
+		ISBN String, //regex ici!!
+		nom String,
+		maisonEdition String
+	}
+
+	entity LivreDetails {
+		dateCreation LocalDate,
+		derniereDateEdition LocalDate
+	}
+
+	relationship OneToOne {
+		LivreDetails{livre} to Livre{details}
+	}
+
+	// Set pagination options
+	paginate Auteur, LivreDetails with infinite-scroll
+	paginate Livre with pagination
+
+2. Indiquer quel champ de l'objet associé on veut afficher. Ici on va afficher le nom du livre. Modifier la relation OneToOne qu'on avait précédemment. [montrer que c'est toujours id du livre en FK dans la BD]
+	relationship OneToOne {
+		LivreDetails{livre(nom)} to Livre{details}
+	}
+	
+3. Des détails de livre ne devraient pas exister s'ils ne sont pas associés à un livre. Pour faire en sorte que l'attribut "livre" ne soit pas "nullable" dans LivreDetails, nous devons rajouter l'option de validation "required":
+	relationship OneToOne {
+		LivreDetails{livre(nom) required} to Livre{details}
+	}
+	
+4. Et si on veut afficher les détails associés aux livres lorsqu'on les affiche? 
+	- Rajouter cette ligne au dessus de la variable "details" dans la classe "Livre":
+		@JsonIgnoreProperties(value = "livre", allowSetters = true)
+		private LivreDetails details;
+	- Rajouter des colonnes dans le tableau HTML pour afficher les détails dans la vue "livre.tsx":
+		<th>Date de création</th>
+        <th>Dernière date d'édition</th>
+		
+		<td><TextFormat type="date" value={livre.details.dateCreation} format={APP_LOCAL_DATE_FORMAT} /></td>
+        <td><TextFormat type="date" value={livre.details.derniereDateEdition} format={APP_LOCAL_DATE_FORMAT} /></td>
+		
+5. Rajoutons une nouvelle relation pour gérer les emprunts des usagers:
+	relationship ManyToOne {
+		Livre{empruntePar(login)} to User
+	}
+	
+	Remplacer ces lignes dans le fichier "livre.tsx":
+		1.
+			<th>
+			  <Translate contentKey="calBiblioApp.livre.empruntePar">Emprunte Par</Translate> <FontAwesomeIcon icon="sort" />
+			</th>
+		par
+			<th>Disponibilité</th>
+		
+		2.
+			<td>{livre.empruntePar ? livre.empruntePar.login : ''}</td>
+		par
+			<td>{livre.empruntePar ? <span>&#x274C;</span> : <span>&#x2714;</span>}</td>
+
+6. Comment interdire d'accéder à certaines routes et vues à certains utilisateurs? Pour démontrer comment faire, nous empêcherons aux utilsateurs non administrateurs d'ajouter ou de modifier les livres ainsi que leurs détails:
+	
+	
+	
+	
+	
+	

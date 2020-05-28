@@ -1,0 +1,24 @@
+{
+  "calBiblioApp": {
+    "livreDetails": {
+      "home": {
+        "title": "Livre Details",
+        "createLabel": "Create a new Livre Details",
+        "createOrEditLabel": "Create or edit a Livre Details",
+        "notFound": "No Livre Details found"
+      },
+      "created": "A new Livre Details is created with identifier {{ param }}",
+      "updated": "A Livre Details is updated with identifier {{ param }}",
+      "deleted": "A Livre Details is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Livre Details {{ id }}?"
+      },
+      "detail": {
+        "title": "Livre Details"
+      },
+      "dateCreation": "Date Creation",
+      "derniereDateEdition": "Derniere Date Edition",
+      "livre": "Livre"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "LivreDetails",
+  "fields": [
+    {
+      "fieldName": "dateCreation",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "derniereDateEdition",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "livre",
+      "otherEntityRelationshipName": "details",
+      "relationshipValidateRules": "required",
+      "relationshipName": "livre",
+      "otherEntityField": "nom",
+      "ownerSide": true
+    }
+  ],
+  "changelogDate": "20200528094100",
+  "entityTableName": "livre_details",
+  "dto": "no",
+  "pagination": "infinite-scroll",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -1,0 +1,24 @@
+{
+  "calBiblioApp": {
+    "livreDetails": {
+      "home": {
+        "title": "LivreDetails",
+        "createLabel": "Créer un nouveau Livre Details",
+        "createOrEditLabel": "Créer ou éditer un Livre Details",
+        "notFound": "Aucun Livre Details trouvé"
+      },
+      "created": "Un nouveau Livre Details a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Livre Details avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Livre Details avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Livre Details {{ id }} ?"
+      },
+      "detail": {
+        "title": "Livre Details"
+      },
+      "dateCreation": "Date Creation",
+      "derniereDateEdition": "Derniere Date Edition",
+      "livre": "Livre"
+    }
+  }
+}

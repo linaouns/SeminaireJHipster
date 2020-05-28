@@ -1,0 +1,24 @@
+{
+  "calBiblioApp": {
+    "auteur": {
+      "home": {
+        "title": "Auteurs",
+        "createLabel": "Créer un nouveau Auteur",
+        "createOrEditLabel": "Créer ou éditer un Auteur",
+        "notFound": "Aucun Auteur trouvé"
+      },
+      "created": "Un nouveau Auteur a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Auteur avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Auteur avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Auteur {{ id }} ?"
+      },
+      "detail": {
+        "title": "Auteur"
+      },
+      "nom": "Nom",
+      "age": "Age",
+      "livre": "Livre"
+    }
+  }
+}
