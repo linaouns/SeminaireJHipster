@@ -16,13 +16,16 @@ export const EntitiesMenu = ({ isAdmin }) => (
     <MenuItem icon="asterisk" to="/livre">
       <Translate contentKey="global.menu.entities.livre" />
     </MenuItem>
-    {isAdmin &&
+    {isAdmin && (
       <MenuItem icon="asterisk" to="/livre-details">
-        <Translate contentKey="global.menu.entities.livreDetails"/>
+        <Translate contentKey="global.menu.entities.livreDetails" />
       </MenuItem>
-    }
+    )}
     <MenuItem icon="asterisk" to="/auteur">
       <Translate contentKey="global.menu.entities.auteur" />
+    </MenuItem>
+    <MenuItem icon="asterisk" to="/livre-details">
+      <Translate contentKey="global.menu.entities.livreDetails" />
     </MenuItem>
     {/* jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here */}
   </NavDropdown>

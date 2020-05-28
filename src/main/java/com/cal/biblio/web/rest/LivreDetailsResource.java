@@ -2,7 +2,6 @@ package com.cal.biblio.web.rest;
 
 import com.cal.biblio.domain.LivreDetails;
 import com.cal.biblio.repository.LivreDetailsRepository;
-import com.cal.biblio.security.AuthoritiesConstants;
 import com.cal.biblio.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -15,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,7 +54,6 @@ public class LivreDetailsResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/livre-details")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<LivreDetails> createLivreDetails(@Valid @RequestBody LivreDetails livreDetails) throws URISyntaxException {
         log.debug("REST request to save LivreDetails : {}", livreDetails);
         if (livreDetails.getId() != null) {
@@ -78,7 +75,6 @@ public class LivreDetailsResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/livre-details")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<LivreDetails> updateLivreDetails(@Valid @RequestBody LivreDetails livreDetails) throws URISyntaxException {
         log.debug("REST request to update LivreDetails : {}", livreDetails);
         if (livreDetails.getId() == null) {
@@ -124,7 +120,6 @@ public class LivreDetailsResource {
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/livre-details/{id}")
-    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteLivreDetails(@PathVariable Long id) {
         log.debug("REST request to delete LivreDetails : {}", id);
 

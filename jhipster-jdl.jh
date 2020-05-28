@@ -26,15 +26,7 @@ relationship ManyToMany {
 	Livre to Auteur
 }
 
-// Set pagination options
 paginate Auteur, LivreDetails with infinite-scroll
 paginate Livre with pagination
 
-// Use Data Transfert Objects (DTO)
-// dto * with mapstruct
-
-// Set service options to all except few
 service all with serviceImpl except Auteur, LivreDetails
-
-// Set an angular suffix
-// angularSuffix * with mySuffix
